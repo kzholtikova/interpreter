@@ -1,20 +1,31 @@
 #pragma once
 
 
-class Token {  // child Number and Operator classes
+class Token {
 public:
-    enum TokenType { Number, Operator, None};
+    virtual ~Token() {};
 
-    Token(const std::string& str);
-    Token();
-    TokenType getType() const;
-    int getNumber() const;
-    char getOperator() const;
-    int getPrecedence() const;
-    std::string toString() const;
+    virtual std::string toString() const = 0;  // Pure virtual function makes the class abstract
+};
+
+class Number : public Token {
 private:
-    TokenType type;
-    int num;
-    char op;
+    int value;
+public:
+    Number(int num) : value(num) {};
+
+    std::string toString() const override;
+    int getValue() const;
+};
+
+class Operator : public Token {
+private:
+    char symbol;
     int precedence;
+public:
+    Operator(char op, int precedence) : symbol(op), precedence(precedence) {};
+
+    std::string toString() const override;
+    char getSymbol() const;
+    int getPrecedence() const;
 };
