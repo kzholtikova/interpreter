@@ -3,5 +3,7 @@ project(interpreter)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(interpreter
-        src/main.cpp)
+file(GLOB_RECURSE SOURCES "src/*.cpp")
+file(GLOB_RECURSE HEADERS "include/*.h")
+
+add_executable(interpreter ${SOURCES} ${HEADERS})
