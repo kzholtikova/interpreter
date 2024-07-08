@@ -1,0 +1,19 @@
+# ninja log v6
+6	521	1720376600577924231	CMakeFiles/interpreter.dir/src/main.cpp.o	68cffb7793cf418c
+13	1659	1720449312818925182	cmake-build-debug/googletest/googletest/CMakeFiles/gtest.dir/src/gtest-all.cc.o	2a11a344db5a8474
+4	503	1720376777337497817	CMakeFiles/interpreter.dir/src/calculator.cpp.o	21d3401b811889d1
+5	574	1720376600577719319	CMakeFiles/interpreter.dir/src/interpreter.cpp.o	8ec133b225463d33
+1698	1714	1720449314504441471	lib/libgtest_main.a	21dc7824fab021f6
+3	343	1720448452819608255	CMakeFiles/interpreter_test.dir/src/token.cpp.o	3821b11911f495d1
+503	599	1720376777835979463	interpreter	2d3704b8aa2bf250
+4	386	1720376734902493227	CMakeFiles/interpreter.dir/src/token.cpp.o	35d59aa4332bf211
+1714	1828	1720449314520272488	interpreter_test	940ebf5ca7a5273a
+2	79	1720449413832956197	build.ninja	bdf38e07cc4c080c
+14	712	1720449312820256735	cmake-build-debug/googletest/googletest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.o	b6fdc8ea88e5e56e
+2	852	1720448345941824297	CMakeFiles/interpreter_test.dir/test/calculator_test.cpp.o	eeb98e74b1d771b9
+1660	1698	1720449314465861344	lib/libgtest.a	1188116ec27b4861
+3	581	1720448452819114101	CMakeFiles/interpreter_test.dir/src/calculator.cpp.o	9d5bf46cfa923a
+3	429	1720448452819387177	CMakeFiles/interpreter_test.dir/src/interpreter.cpp.o	be261546967236a4
+3	386	1720448452819503299	CMakeFiles/interpreter_test.dir/src/main.cpp.o	ac24f91bfec38368
+2	76	1720449413832956197	build.ninja	bdf38e07cc4c080c
+11	191	1720449413855370774	interpreter_test	adc7b008cbb8b992
