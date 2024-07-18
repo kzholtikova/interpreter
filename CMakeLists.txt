@@ -13,7 +13,11 @@ add_subdirectory(cmake-build-debug/googletest)
 
 # Test target
 file(GLOB_RECURSE TESTS "test/*.cpp")
-add_executable(interpreter_test ${TESTS} src/calculator.cpp src/token.cpp src/functionHandler.cpp)
+add_executable(interpreter_test ${TESTS}
+        src/calculator.cpp src/token.cpp
+        src/functionHandler.cpp
+        src/variablesStorage.cpp
+        src/interpreter.cpp)
 
 # Link Google Test to the test target
 target_link_libraries(interpreter_test gtest_main)

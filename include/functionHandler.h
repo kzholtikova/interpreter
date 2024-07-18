@@ -11,5 +11,4 @@ public:
 
     static double applyFunction(const std::string& line, size_t argsPos);
     static std::vector<double> parseArguments(const std::string& argsStr);
-    static double evaluateArgument(std::string arg);
 };

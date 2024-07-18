@@ -3,15 +3,21 @@
 #include "../include/calculator.h"
 #include "../include/functionHandler.h"
 
-void Interpreter::processLine(const std::string& line) {
-    double result;
-    size_t delimPos;
-    if (std::isdigit(line[0]))
-        result = Calculator::calculateExpression(line);
-    else if ((delimPos = line.find('(')) != std::string::npos && line.back() == ')')
-        result = FunctionHandler::applyFunction(line, delimPos);
-    else
-        throw std::invalid_argument("Invalid syntax");
+VariableStorage Interpreter::variables;
 
-    std::cout << result << "\n";
+void Interpreter::processLine(const std::string& line) {
+    if (line.rfind("var ", 0) == 0)
+        Interpreter::variables.addVariable(line.substr(4, line.size()));
+    else
+        std::cout << processExpression(line) << "\n";
 }
+
+double Interpreter::processExpression(const std::string& line) {
+    std::string trimmedLine = line.substr(line.find_first_not_of(' '), line.find_last_not_of(' ') + 1);
+    size_t delimPos;
+    if ((delimPos = line.find('(')) != std::string::npos && line.back() == ')')
+        return FunctionHandler::applyFunction(line, delimPos);
+    else
+        return Calculator::calculateExpression(line);
+}
+

@@ -1,6 +1,8 @@
+#include <iostream>
 #include <sstream>
 #include <map>
 #include "../include/calculator.h"
+#include "../include/interpreter.h"
 
 const std::map<char, int> PRECEDENCES = { {'+', 1}, {'-', 1}, {'*', 2}, {'/', 2} };
 
@@ -60,10 +62,12 @@ std::queue<Token*> Calculator::infixToPostfix(const std::string& infix) {
 }
 
 Token* Calculator::tokenize(const std::string& str) {
-    if (std::all_of(str.begin(), str.end(), ::isdigit))
-        return new Number(std::stoi(str));
     if (str.size() == 1 && PRECEDENCES.count(str[0]))
         return new Operator(str[0], PRECEDENCES.at(str[0]));
+    if ((str[0] == '-' || std::isdigit(str[0])) && std::all_of(str.begin() + 1, str.end(), ::isdigit))
+        return new Number(std::stoi(str));
+    if (std::all_of(str.begin(), str.end(), ::isalpha) && Interpreter::variables.find(str))
+        return new Number(static_cast<int>(Interpreter::variables.getAt(str)));
 
     throw std::invalid_argument("Invalid symbol near " + str);
 };
