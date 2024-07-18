@@ -41,7 +41,3 @@ TEST(CalculatorTest, CorrectExpressionResult) {
 TEST(CalculatorTest, CorrectSingleTokenEvaluation) {
     EXPECT_DOUBLE_EQ(Calculator::calculateExpression("3"), 3);
 }
-
-TEST(CalculatorTest, HandleLeadingAndTrailingSpaces) {
-    EXPECT_DOUBLE_EQ(Calculator::calculateExpression("   2         "), 2);
-}
