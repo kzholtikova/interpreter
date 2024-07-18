@@ -1,6 +1,7 @@
 #include <iostream>
 #include <sstream>
 #include "../include/functionHandler.h"
+#include "../include/interpreter.h"
 
 std::map<std::string, function> FunctionHandler::funcStorage = {
         {"min", [](const std::vector<double>& args) { return std::min(args[0], args[1]); }},
@@ -15,7 +16,7 @@ double FunctionHandler::applyFunction(const std::string& line, size_t argsPos) {
         std::vector<double> args = parseArguments(line.substr(argsPos + 1, line.size() - argsPos - 2));
         return funcStorage.at(funcName)(args);
     } else
-        throw std::invalid_argument("Unknown function: " + funcName);
+        throw std::invalid_argument("Unknown function '" + funcName + "'");
 }
 
 std::vector<double> FunctionHandler::parseArguments(const std::string& argsStr) {  // format: "a, b"
@@ -25,7 +26,8 @@ std::vector<double> FunctionHandler::parseArguments(const std::string& argsStr) 
 
     for (char ch : argsStr) {
         if (ch == ',' && parenthesesCounter == 0) {
-            args.push_back(evaluateArgument(ss.str()));
+            std::string arg = ss.str();
+            args.push_back(Interpreter::processExpression(arg));
             ss.str(std::string());
             ss.clear();
         } else {
@@ -38,19 +40,6 @@ std::vector<double> FunctionHandler::parseArguments(const std::string& argsStr) 
     }
 
     if (!ss.str().empty())
-        args.push_back(evaluateArgument(ss.str()));
+        args.push_back(Interpreter::processExpression(ss.str()));
     return args;
-}
-
-double FunctionHandler::evaluateArgument(std::string arg) {  // ss.str() returns a temporary std::string object, can be used only with const
-    arg.erase(arg.begin(), std::find_if_not(arg.begin(), arg.end(), ::isspace));  // trim leading space
-    arg.erase(std::find_if_not(arg.rbegin(), arg.rend(), ::isspace).base(), arg.end());  // trim trailing space
-
-    if (arg.find('(') != std::string::npos && arg.back() == ')') {
-        return applyFunction(arg, arg.find('('));
-    } else if ((arg.front() == '-' || std::isdigit(arg.front())) && std::all_of(arg.begin() + 1, arg.end(), ::isdigit)) {
-        return std::stoi(arg);
-    } else {
-        throw std::invalid_argument("Invalid function arguments: " + arg);
-    }
 }
