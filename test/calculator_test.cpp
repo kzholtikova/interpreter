@@ -37,3 +37,11 @@ TEST(CalculatorTest, PrecedenceConsideration) {
 TEST(CalculatorTest, CorrectExpressionResult) {
     EXPECT_DOUBLE_EQ(Calculator::calculateExpression("5 + 3 * 7 - 2 / 4"), 25.5);
 }
+
+TEST(CalculatorTest, CorrectSingleTokenEvaluation) {
+    EXPECT_DOUBLE_EQ(Calculator::calculateExpression("3"), 3);
+}
+
+TEST(CalculatorTest, HandleLeadingAndTrailingSpaces) {
+    EXPECT_DOUBLE_EQ(Calculator::calculateExpression("   2         "), 2);
+}
