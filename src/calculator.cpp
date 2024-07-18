@@ -62,7 +62,7 @@ std::queue<Token*> Calculator::infixToPostfix(const std::string& infix) {
 }
 
 Token* Calculator::tokenize(const std::string& str) {
-    if (std::all_of(str.begin(), str.end(), ::isdigit))
+    if ((str[0] == '-' || std::isdigit(str[0])) && std::all_of(str.begin() + 1, str.end(), ::isdigit))
         return new Number(std::stoi(str));
     if (std::all_of(str.begin(), str.end(), ::isalpha) && Interpreter::variables.find(str))
         return new Number(static_cast<int>(Interpreter::variables.getAt(str)));
