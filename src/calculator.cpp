@@ -42,7 +42,7 @@ double Calculator::applyOperation(char op, double num1, double num2) {
 }
 
 std::queue<Token*> Calculator::infixToPostfix(const std::string& infix) {
-    std::stringstream ss(infix.substr(infix.find_first_not_of(' '), infix.find_last_not_of(' ') + 1));
+    std::stringstream ss(infix);
     std::string str;
     std::queue<Token*> outputQ;
     std::stack<Operator*> opStack;
@@ -62,12 +62,12 @@ std::queue<Token*> Calculator::infixToPostfix(const std::string& infix) {
 }
 
 Token* Calculator::tokenize(const std::string& str) {
+    if (str.size() == 1 && PRECEDENCES.count(str[0]))
+        return new Operator(str[0], PRECEDENCES.at(str[0]));
     if ((str[0] == '-' || std::isdigit(str[0])) && std::all_of(str.begin() + 1, str.end(), ::isdigit))
         return new Number(std::stoi(str));
     if (std::all_of(str.begin(), str.end(), ::isalpha) && Interpreter::variables.find(str))
         return new Number(static_cast<int>(Interpreter::variables.getAt(str)));
-    if (str.size() == 1 && PRECEDENCES.count(str[0]))
-        return new Operator(str[0], PRECEDENCES.at(str[0]));
 
     throw std::invalid_argument("Invalid symbol near " + str);
 };

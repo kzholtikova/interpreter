@@ -13,6 +13,7 @@ void Interpreter::processLine(const std::string& line) {
 }
 
 double Interpreter::processExpression(const std::string& line) {
+    std::string trimmedLine = line.substr(line.find_first_not_of(' '), line.find_last_not_of(' ') + 1);
     size_t delimPos;
     if ((delimPos = line.find('(')) != std::string::npos && line.back() == ')')
         return FunctionHandler::applyFunction(line, delimPos);
